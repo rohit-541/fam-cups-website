@@ -276,7 +276,7 @@ export default function App() {
               rel="noopener noreferrer" 
               className="inline-flex items-center justify-center w-full mb-6 bg-[#6b8e4e]/10 text-[#3b5c3b] border border-[#6b8e4e]/30 font-bold py-3 rounded-lg hover:bg-[#6b8e4e]/20 transition duration-300"
             >
-              📝 Fill out our Google Form
+              Fill out our Google Form
             </a>
 
             <div className="flex items-center gap-4 mb-6">
