@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { GiCoffeeCup, GiWheat, GiCow, GiMoneyStack } from 'react-icons/gi';
+import { GiCoffeeCup, GiWheat, GiCow } from 'react-icons/gi';
 import { FaLeaf, FaRecycle, FaExclamationTriangle, FaPlane, FaCoffee, FaGlassWhiskey } from 'react-icons/fa';
 import cup from './assets/cup.svg';
 import logo from './assets/logo.svg';
@@ -9,6 +9,24 @@ export default function App() {
   const { scrollY } = useScroll();
   // Rotate the central glass based on scroll position
   const cupRotation = useTransform(scrollY, [0, 1000], [0, 360]);
+
+  // Mock Form Handling State
+  const [submitStatus, setSubmitStatus] = useState(''); // 'sending', 'success'
+
+  const handleMockSubmit = (e) => {
+    e.preventDefault();
+    setSubmitStatus('sending');
+
+    // Simulate network request delay (1.5 seconds)
+    setTimeout(() => {
+      console.log('Mock form submitted successfully!');
+      setSubmitStatus('success');
+      e.target.reset(); // Clear the form fields
+      
+      // Clear the success message after 5 seconds
+      setTimeout(() => setSubmitStatus(''), 5000);
+    }, 1500);
+  };
 
   // Enable smooth scrolling on the entire document
   useEffect(() => {
@@ -28,8 +46,7 @@ export default function App() {
           <div className="hidden md:flex gap-6 font-semibold">
             <a href="#problem" className="hover:text-[#6b8e4e] transition">The Problem</a>
             <a href="#solution" className="hover:text-[#6b8e4e] transition">Ingredients</a>
-            <a href="#specs" className="hover:text-[#6b8e4e] transition">Specs & Nutrition</a>
-            <a href="#economics" className="hover:text-[#6b8e4e] transition">Economics</a>
+            <a href="#details" className="hover:text-[#6b8e4e] transition">Market & Nutrition</a>
             <a href="#lifecycle" className="hover:text-[#6b8e4e] transition">Zero Waste</a>
           </div>
         </div>
@@ -44,7 +61,7 @@ export default function App() {
           className="max-w-4xl z-10 flex flex-col items-center"
         >
           <h1 className="text-5xl md:text-7xl font-extrabold text-[#3b5c3b] mb-4 leading-tight">
-            Good for you. <br className="md:hidden" /><span className="text-[#6b8e4e]">Great for the globe</span>
+            Good for you. <br className="md:hidden" /><span className="text-[#6b8e4e]">Great for the globe.</span>
           </h1>
           
           <div className="relative my-8 h-64 w-64 flex justify-center items-center">
@@ -91,17 +108,17 @@ export default function App() {
             <div className="bg-[#f4f7f4] p-8 rounded-2xl text-center shadow-sm border border-gray-100">
               <FaExclamationTriangle className="text-[#b57b49] text-5xl mx-auto mb-4" />
               <h3 className="font-bold text-xl mb-2 text-[#3b5c3b]">Microplastics</h3>
-              <p className="text-gray-600">Paper cups leach microplastics and fluoride ions into hot water at 85–90°C within just 15 minutes</p>
+              <p className="text-gray-600">Paper cups leach microplastics and fluoride ions into hot water at 85–90°C within just 15 minutes.</p>
             </div>
             <div className="bg-[#f4f7f4] p-8 rounded-2xl text-center shadow-sm border border-gray-100">
               <FaRecycle className="text-[#b57b49] text-5xl mx-auto mb-4" />
               <h3 className="font-bold text-xl mb-2 text-[#3b5c3b]">Cannot Be Recycled</h3>
-              <p className="text-gray-600">Single-use cups are plastic-lined, rarely recovered or reprocessed</p>
+              <p className="text-gray-600">Single-use cups are plastic-lined, rarely recovered or reprocessed.</p>
             </div>
             <div className="bg-[#f4f7f4] p-8 rounded-2xl text-center shadow-sm border border-gray-100">
               <FaLeaf className="text-[#6b8e4e] text-5xl mx-auto mb-4" />
               <h3 className="font-bold text-xl mb-2 text-[#3b5c3b]">Wildlife Threat</h3>
-              <p className="text-gray-600">Plastic debris threatens marine and land animals</p>
+              <p className="text-gray-600">Plastic debris threatens marine and land animals.</p>
             </div>
           </div>
         </div>
@@ -118,141 +135,88 @@ export default function App() {
             >
               <div className="text-center text-[#3b5c3b]">
                 <GiWheat size={120} className="mx-auto mb-4 text-[#b57b49]" />
-                <h3 className="font-black text-3xl">100% Natural </h3>
+                <h3 className="font-black text-3xl">100% Natural</h3>
               </div>
             </motion.div>
           </div>
           <div className="w-full md:w-1/2">
-            <h2 className="text-4xl font-bold mb-6">Ingredients & Proportions </h2>
+            <h2 className="text-4xl font-bold mb-6">Ingredients & Proportions</h2>
             <ul className="grid grid-cols-2 gap-6 text-lg text-gray-200">
               <li className="flex items-center gap-3">
                 <span className="bg-[#6b8e4e] text-white p-2 rounded-full"><FaLeaf size={14}/></span>
-                <div><strong className="text-white">Wheat Flour:</strong> 40% </div>
+                <div><strong className="text-white">Wheat Flour:</strong> 55%</div>
               </li>
               <li className="flex items-center gap-3">
                 <span className="bg-[#6b8e4e] text-white p-2 rounded-full"><FaLeaf size={14}/></span>
-                <div><strong className="text-white">Corn Starch:</strong> 20% [cite: 35, 36]</div>
+                <div><strong className="text-white">Jaggery Powder:</strong> 22.5%</div>
               </li>
               <li className="flex items-center gap-3">
                 <span className="bg-[#6b8e4e] text-white p-2 rounded-full"><FaLeaf size={14}/></span>
-                <div><strong className="text-white">Sugar:</strong> 15% [cite: 37, 38]</div>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="bg-[#6b8e4e] text-white p-2 rounded-full"><FaLeaf size={14}/></span>
-                <div><strong className="text-white">Cocoa Powder:</strong> 10% [cite: 39, 40]</div>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="bg-[#6b8e4e] text-white p-2 rounded-full"><FaLeaf size={14}/></span>
-                <div><strong className="text-white">Ghee:</strong> 10% [cite: 41, 42]</div>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="bg-[#6b8e4e] text-white p-2 rounded-full"><FaLeaf size={14}/></span>
-                <div><strong className="text-white">Flavouring:</strong> 5% [cite: 43, 44]</div>
+                <div><strong className="text-white">Ghee:</strong> 22.5%</div>
               </li>
             </ul>
             <div className="mt-8 inline-block bg-[#6b8e4e] text-white font-bold py-3 px-6 rounded-lg shadow-md">
-              100% Food-Grade • No Preservatives • Zero Chemicals [cite: 126]
+              100% Food-Grade • No Preservatives • Zero Chemicals
             </div>
           </div>
         </div>
       </section>
 
-      {/* Design Specs & Nutrition Section */}
-      <section id="specs" className="py-20 px-6 bg-[#fdfdfd] relative z-10 border-t border-gray-100">
+      {/* Nutrition & Market Applications */}
+      <section id="details" className="py-20 px-6 bg-[#fdfdfd] relative z-10 border-t border-gray-100">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-12">
           
-          {/* Specs */}
-          <div className="w-full md:w-1/2 bg-white p-8 rounded-2xl shadow-lg border-t-4 border-[#3b5c3b]">
-            <h3 className="text-3xl font-bold text-[#3b5c3b] mb-6">Design Specs [cite: 58]</h3>
-            <ul className="space-y-4 text-gray-700">
-              <li className="flex justify-between border-b border-gray-100 pb-2"><span>Height</span> <span className="font-bold text-[#3b5c3b]">8–10 cm [cite: 59]</span></li>
-              <li className="flex justify-between border-b border-gray-100 pb-2"><span>Diameter</span> <span className="font-bold text-[#3b5c3b]">6–8 cm [cite: 59]</span></li>
-              <li className="flex justify-between border-b border-gray-100 pb-2"><span>Thickness</span> <span className="font-bold text-[#3b5c3b]">4–6 mm [cite: 60]</span></li>
-              <li className="flex justify-between border-b border-gray-100 pb-2"><span>Capacity</span> <span className="font-bold text-[#3b5c3b]">150–200 mL [cite: 61]</span></li>
-              <li className="flex justify-between pt-2"><span>Structural Stability</span> <span className="font-bold text-[#6b8e4e]">~30 minutes [cite: 57]</span></li>
-            </ul>
-          </div>
-
           {/* Nutrition */}
-          <div className="w-full md:w-1/2 bg-[#3b5c3b] p-8 rounded-2xl shadow-lg text-white">
-            <h3 className="text-3xl font-bold mb-6">Nutrition Facts <span className="text-sm font-normal opacity-80">(per cup) [cite: 70]</span></h3>
-            <div className="text-5xl font-black mb-6">130 <span className="text-xl font-medium">Calories [cite: 71, 72]</span></div>
+          <div className="w-full md:w-1/2 bg-[#3b5c3b] p-8 rounded-2xl shadow-lg text-white flex flex-col justify-center">
+            <h3 className="text-3xl font-bold mb-6">Nutrition Facts <span className="text-sm font-normal opacity-80">(per cup)</span></h3>
+            <div className="text-5xl font-black mb-6">130 <span className="text-xl font-medium">Calories</span></div>
             <ul className="space-y-4 text-gray-200">
-              <li className="flex justify-between border-b border-white/20 pb-2"><span>Total Fat</span> <span className="font-bold">5g (6% DV) [cite: 73, 74]</span></li>
-              <li className="flex justify-between border-b border-white/20 pb-2"><span>Total Carbohydrate</span> <span className="font-bold">19g (7% DV) [cite: 75, 76]</span></li>
-              <li className="flex justify-between border-b border-white/20 pb-2 pl-4 text-sm opacity-90"><span>Sugars</span> <span className="font-bold">11g [cite: 77, 78]</span></li>
-              <li className="flex justify-between pt-2"><span>Protein</span> <span className="font-bold">2g [cite: 79, 80]</span></li>
+              <li className="flex justify-between border-b border-white/20 pb-2"><span>Total Fat</span> <span className="font-bold">5g (6% DV)</span></li>
+              <li className="flex justify-between border-b border-white/20 pb-2"><span>Total Carbohydrate</span> <span className="font-bold">19g (7% DV)</span></li>
+              <li className="flex justify-between border-b border-white/20 pb-2 pl-4 text-sm opacity-90"><span>Sugars</span> <span className="font-bold">11g</span></li>
+              <li className="flex justify-between pt-2"><span>Protein</span> <span className="font-bold">2g</span></li>
             </ul>
           </div>
 
-        </div>
-      </section>
-
-      {/* Economics & Market Section */}
-      <section id="economics" className="py-20 px-6 bg-[#f4f7f4] relative z-10 border-t border-gray-200">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-[#3b5c3b] mb-4">Market & Cost Efficiency [cite: 83]</h2>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-8 justify-center">
-            {/* Cost Breakdown */}
-            <div className="w-full md:w-1/2 bg-white p-8 rounded-2xl border-l-4 border-[#3b5c3b] shadow-sm">
-              <div className="flex items-center gap-4 mb-6">
-                <GiMoneyStack className="text-4xl text-[#6b8e4e]" />
-                <h3 className="text-2xl font-bold text-[#3b5c3b]">Production Cost [cite: 96]</h3>
+          {/* Applications */}
+          <div className="w-full md:w-1/2 bg-white p-8 rounded-2xl border-t-4 border-[#6b8e4e] shadow-lg flex flex-col justify-center">
+            <h3 className="text-3xl font-bold text-[#3b5c3b] mb-6">Commercial Applications</h3>
+            <div className="grid grid-cols-2 gap-6 text-gray-700">
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="bg-[#f4f7f4] p-4 rounded-full text-[#b57b49] text-2xl"><FaCoffee /></div>
+                <span className="text-sm font-semibold">Cafes & Restaurants</span>
               </div>
-              <ul className="space-y-4 text-lg text-gray-700 font-medium">
-                <li className="flex justify-between border-b border-gray-200 pb-2">
-                  <span>Total Batch Cost</span>
-                  <span className="text-[#3b5c3b] font-bold">≈ ₹640 [cite: 97]</span>
-                </li>
-                <li className="flex justify-between border-b border-gray-200 pb-2">
-                  <span>Cost Per Cup</span>
-                  <span className="text-[#3b5c3b] font-bold">≈ ₹5 – ₹8 [cite: 98]</span>
-                </li>
-              </ul>
-              <div className="mt-6 p-4 bg-[#f4f7f4] rounded-lg border border-[#6b8e4e]/20">
-                <p className="text-sm text-[#3b5c3b] font-bold mb-1">Innovative & Marketable [cite: 89]</p>
-                <p className="text-sm text-gray-600">Combining sustainability with a unique concept that has strong commercial appeal[cite: 90].</p>
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="bg-[#f4f7f4] p-4 rounded-full text-[#6b8e4e] text-2xl"><FaLeaf /></div>
+                <span className="text-sm font-semibold">Events & Festivals</span>
+              </div>
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="bg-[#f4f7f4] p-4 rounded-full text-[#b57b49] text-2xl"><GiCoffeeCup /></div>
+                <span className="text-sm font-semibold">Ice Cream Parlors</span>
+              </div>
+              <div className="flex flex-col items-center text-center gap-2">
+                <div className="bg-[#f4f7f4] p-4 rounded-full text-[#3b5c3b] text-2xl"><FaPlane /></div>
+                <span className="text-sm font-semibold">Airlines & Railways</span>
               </div>
             </div>
-
-            {/* Applications */}
-            <div className="w-full md:w-1/2 bg-white p-8 rounded-2xl border-l-4 border-[#6b8e4e] shadow-sm">
-              <h3 className="text-2xl font-bold text-[#3b5c3b] mb-6">Commercial Applications [cite: 91]</h3>
-              <div className="grid grid-cols-2 gap-6 text-gray-700">
-                <div className="flex flex-col items-center text-center gap-2">
-                  <div className="bg-[#f4f7f4] p-4 rounded-full text-[#b57b49] text-2xl"><FaCoffee /></div>
-                  <span className="text-sm font-semibold">Cafes & Restaurants [cite: 92]</span>
-                </div>
-                <div className="flex flex-col items-center text-center gap-2">
-                  <div className="bg-[#f4f7f4] p-4 rounded-full text-[#6b8e4e] text-2xl"><FaLeaf /></div>
-                  <span className="text-sm font-semibold">Events & Festivals [cite: 93]</span>
-                </div>
-                <div className="flex flex-col items-center text-center gap-2">
-                  <div className="bg-[#f4f7f4] p-4 rounded-full text-[#b57b49] text-2xl"><GiCoffeeCup /></div>
-                  <span className="text-sm font-semibold">Ice Cream Parlors [cite: 94]</span>
-                </div>
-                <div className="flex flex-col items-center text-center gap-2">
-                  <div className="bg-[#f4f7f4] p-4 rounded-full text-[#3b5c3b] text-2xl"><FaPlane /></div>
-                  <span className="text-sm font-semibold">Airlines & Railways [cite: 95]</span>
-                </div>
-              </div>
+            <div className="mt-6 p-4 bg-[#f4f7f4] rounded-lg border border-[#6b8e4e]/20 text-center">
+              <p className="text-sm text-[#3b5c3b] font-bold mb-1">Innovative & Marketable</p>
+              <p className="text-sm text-gray-600">Combining sustainability with a unique concept that has strong commercial appeal.</p>
             </div>
           </div>
+
         </div>
       </section>
 
       {/* Zero Waste Cycle Section */}
-      <section id="lifecycle" className="py-20 px-6 bg-white text-center relative z-10 border-t border-gray-100">
+      <section id="lifecycle" className="py-20 px-6 bg-[#f4f7f4] text-center relative z-10 border-t border-gray-100">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-[#3b5c3b] mb-4">The Zero Waste Cycle [cite: 153]</h2>
-          <p className="text-lg text-gray-600 mb-16">A sustainable lifecycle with 0 kg waste sent to landfill[cite: 159, 162].</p>
+          <h2 className="text-4xl font-bold text-[#3b5c3b] mb-4">The Zero Waste Cycle</h2>
+          <p className="text-lg text-gray-600 mb-16">A sustainable lifecycle with 0 kg waste sent to landfill.</p>
 
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8">
             <motion.div whileHover={{ scale: 1.05 }} className="flex flex-col items-center w-40">
-              <div className="bg-[#f4f7f4] w-24 h-24 rounded-full flex items-center justify-center text-[#b57b49] text-4xl mb-4 shadow-md border border-[#6b8e4e]/20">
+              <div className="bg-[#fdfdfd] w-24 h-24 rounded-full flex items-center justify-center text-[#b57b49] text-4xl mb-4 shadow-md border border-[#6b8e4e]/20">
                 <FaGlassWhiskey />
               </div>
               <h3 className="font-bold text-lg text-[#3b5c3b]">1. CUP USE</h3>
@@ -261,7 +225,7 @@ export default function App() {
             <div className="text-[#6b8e4e] text-2xl hidden md:block">➔</div>
             
             <motion.div whileHover={{ scale: 1.05 }} className="flex flex-col items-center w-40">
-              <div className="bg-[#f4f7f4] w-24 h-24 rounded-full flex items-center justify-center text-[#b57b49] text-4xl mb-4 shadow-md border border-[#6b8e4e]/20">
+              <div className="bg-[#fdfdfd] w-24 h-24 rounded-full flex items-center justify-center text-[#b57b49] text-4xl mb-4 shadow-md border border-[#6b8e4e]/20">
                 <GiWheat />
               </div>
               <h3 className="font-bold text-lg text-[#3b5c3b]">2. CRUMBLE</h3>
@@ -270,14 +234,14 @@ export default function App() {
             <div className="text-[#6b8e4e] text-2xl hidden md:block">➔</div>
 
             <motion.div whileHover={{ scale: 1.05 }} className="flex flex-col items-center w-40">
-              <div className="bg-[#f4f7f4] w-24 h-24 rounded-full flex items-center justify-center text-[#6b8e4e] text-4xl mb-4 shadow-md border border-[#6b8e4e]/20">
+              <div className="bg-[#fdfdfd] w-24 h-24 rounded-full flex items-center justify-center text-[#6b8e4e] text-4xl mb-4 shadow-md border border-[#6b8e4e]/20">
                 <GiCow />
               </div>
               <h3 className="font-bold text-lg text-[#3b5c3b]">3. ANIMAL FEED</h3>
             </motion.div>
           </div>
           
-          <p className="mt-12 text-gray-500 italic">Used cups crumbled into nutritious biscuits for dogs, cattle & livestock. 100% consumed[cite: 157].</p>
+          <p className="mt-12 text-gray-500 italic">Used cups crumbled into nutritious biscuits for dogs, cattle & livestock. 100% consumed.</p>
         </div>
       </section>
 
@@ -291,11 +255,11 @@ export default function App() {
               <img src={logo} alt="FamCups Logo" className="w-12 h-12 bg-white rounded-full p-1" />
               FAM CUPS
             </div>
-            <p className="text-base opacity-90 mb-3">A Student Startup Innovation[cite: 149]. Global Impact Initiative[cite: 148].</p>
-            <p className="text-base font-semibold text-[#a3c983] mb-6">Team: Harshit, Rahul, Yash, Sumit, Mahima [cite: 117]</p>
+            <p className="text-base opacity-90 mb-3">A Student Startup Innovation. Global Impact Initiative.</p>
+            <p className="text-base font-semibold text-[#a3c983] mb-6">Team: Harshit, Rahul, Yash, Sumit, Mahima</p>
             
             <div className="space-y-2 opacity-80 text-sm max-w-sm">
-              <p>📍 Guided by: Professor Sumer Singh [cite: 4]</p>
+              <p>📍 Guided by: Professor Sumer Singh</p>
               <p>📧 Email: contact@famcups.com</p>
             </div>
           </div>
@@ -305,38 +269,76 @@ export default function App() {
             <h4 className="text-2xl font-bold text-[#3b5c3b] mb-2">We'd love your feedback!</h4>
             <p className="text-gray-500 mb-6 text-sm">Have suggestions or want to pre-order? Let us know.</p>
             
-            <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('Feedback submitted!'); }}>
+            {/* Google Form Link */}
+            <a 
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdDURZaJogu5GoQEkpRtpIpLTDxFnhSpsn6PGTGfi9JJjvQMA/viewform?usp=publish-editor" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center justify-center w-full mb-6 bg-[#6b8e4e]/10 text-[#3b5c3b] border border-[#6b8e4e]/30 font-bold py-3 rounded-lg hover:bg-[#6b8e4e]/20 transition duration-300"
+            >
+              📝 Fill out our Google Form
+            </a>
+
+            <div className="flex items-center gap-4 mb-6">
+              <hr className="flex-1 border-gray-200" />
+              <span className="text-xs text-gray-400 uppercase font-bold tracking-wider">Or use this form</span>
+              <hr className="flex-1 border-gray-200" />
+            </div>
+            
+            {/* Local Mock Form */}
+            <form onSubmit={handleMockSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <input 
                   type="text" 
+                  name="user_firstname"
                   placeholder="First Name" 
                   required 
                   className="w-full p-3 bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#6b8e4e] focus:bg-white transition" 
                 />
                 <input 
                   type="text" 
+                  name="user_lastname"
                   placeholder="Last Name" 
                   className="w-full p-3 bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#6b8e4e] focus:bg-white transition" 
                 />
               </div>
               <input 
                 type="email" 
+                name="user_email"
                 placeholder="Email Address" 
                 required 
                 className="w-full p-3 bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#6b8e4e] focus:bg-white transition" 
               />
               <textarea 
+                name="message"
                 placeholder="Your Feedback or Inquiry..." 
                 rows="3" 
                 required 
                 className="w-full p-3 bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#6b8e4e] focus:bg-white transition resize-none"
               ></textarea>
+              
               <button 
                 type="submit" 
-                className="w-full bg-[#3b5c3b] text-[#fdfdfd] font-bold py-3 rounded-lg hover:bg-[#6b8e4e] transition duration-300 shadow-md"
+                disabled={submitStatus === 'sending'}
+                className="w-full bg-[#3b5c3b] text-[#fdfdfd] font-bold py-3 rounded-lg hover:bg-[#6b8e4e] transition duration-300 shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
               >
-                Send Feedback
+                {submitStatus === 'sending' ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </>
+                ) : 'Submit Feedback'}
               </button>
+
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <p className="text-green-600 text-sm mt-2 text-center font-medium bg-green-50 p-2 rounded">
+                  Thank you! Your feedback has been sent.
+                </p>
+              )}
             </form>
           </div>
 
